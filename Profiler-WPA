@@ -1,0 +1,103 @@
+#!/bin/bash
+# Keep the next line untouched please, is the one incharged of writting its own code of profiles
+# Recorded profiles! Zone of storage
+
+#--------------------------------------------------
+#Administrative variables
+ipi=$(ifconfig | grep 192 | cut -d' ' -f10) #Your IP in the network
+ssid=$(iwgetid | cut -d '"' -f2)		#The ssid of the network connected
+model_name="prof"		#Model name for the profiles
+filepath='/etc/wpa_supplicant/wpa_supplicant.conf' #Path of the config file 
+declare -n appy_profile
+
+#Founder of how many profiles there are and listing
+how_many_s() { #How many simple
+cat "$0" | grep "$model_name[0-9][=]" | wc --lines
+}
+how_many_a() { #How many all 
+ echo "Profiles available: [$(how_many_s)]"
+ cat "$0" | grep "$model_name[0-9][=]" | cut -c11- 
+
+}
+
+#Checks if has put any first argument 
+none_check(){
+ if [ -z "$1" ] 
+ then 
+  echo -e  "Enter an argument or a valid one\n--help available"  && exit
+ fi
+}
+
+none_check "$1"
+case "$1" in 
+"--help") ###################################################### 
+ echo '
+ --help -> duh
+ --status -> show ip, network connected and profile selected
+ --new [SSID] [Password]-> new profile to be saved
+ --del [Number of target profile]-> delete a profile
+ --use -> apply changes set in selected profile to /etc/wpa..	 
+ '
+;;
+"--status") ###################################################### 
+ echo "IP: $ipi"
+ echo "Network connected: $ssid"
+ how_many_a
+;;
+"--new") ###################################################### 
+#Filter wrong iputs
+none_check "$2" 
+none_check "$3"
+#Formation of the profile name
+in_name=$(echo -n $model_name && echo $(( $(how_many_s) + 1)))
+
+#Informative
+echo -e "\n Creating a profile:\n \t SSID: $2 \n\t Passwd: $3 \n\t Internal name: $in_name \n\n"
+#The core
+sed -i "3 a declare -A $in_name=( [\"name\"]=\"$2\" [\"pass\"]=\"$3\")" "$0"
+#Finish info
+how_many_a
+;;
+"--del") ######################################################  
+none_check "$2"
+
+target=$(echo -n $model_name && echo "$2")
+locate_target=$(( $(cat -n "$0" | grep "$target[=]" | cut -f1) + 0 ))
+
+if [ $locate_target -eq 0 ]
+then 
+ echo -e "Not available, please insert a valid one\n"
+ how_many_a
+else
+ sed_target=$(echo -n $locate_target && echo "d")
+ sed -i "$sed_target" "$0"
+ echo -e "Profile deleted\n"
+ how_many_a
+fi
+;;
+"--use") #########################################################
+none_check "$2"
+target=$(echo -n $model_name && echo "$2")
+locate_target=$(( $(cat -n "$0" | grep "$target[=]" | cut -f1) +0 ))
+appy_profile="$target"
+
+if [ $locate_target -eq 0 ]
+then 
+ echo -e "Profile not found, please enter a vaild one\n"
+ how_many_a
+ exit
+else
+ sudo sed -i "5d" "$filepath" ; sudo sed -i "4d" "$filepath"
+ sudo sed -i "3 a  psk=\"${appy_profile[pass]}\"" "$filepath"
+ sudo sed -i "3 a  ssid=\"${appy_profile[name]}\"" "$filepath"
+ echo -e "Profile applied correctly\n Rebooting in 10 seconds, if dont want Ctrl+C"
+ sleep 10s
+ reboot
+
+fi
+;;
+*) ############################ 
+echo "Enter a valid argument, --help available" && exit
+esac
+
+ 
