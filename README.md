@@ -14,8 +14,7 @@ It's intended to be used in a RaspberryPi 0W (Raspibian OS) to change easily fro
 This program stores the password strings as it is, it's one of the first bash programs I made so apologies in advance. 
 To avoid any security danger change permissions to only be executed and read by root:
 ```bash
-sudo chown root profilerWPA && sudo chgrp root profilerWPA
-sudo chmod 700 ProfilerWPA
+sudo chown root profilerWPA && sudo chgrp root profilerWPA && sudo chmod 700 profilerWPA
 ```
 The file should look like this: 
 ![IMG2](.screenshots/sst2.png)
