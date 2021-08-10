@@ -32,7 +32,7 @@ none_check "$1"
 case "$1" in 
 "--help") ###################################################### 
  echo '
- --help -> duh
+ --help -> self-explanatory
  --status -> show ip, network connected and profile selected
  --new [SSID] [Password]-> new profile to be saved
  --del [Number of target profile]-> delete a profile
@@ -100,4 +100,5 @@ fi
 echo "Enter a valid argument, --help available" && exit
 esac
 
- 
+ # Disclaimer: 
+ # Make sure this script is protected with the adequate permissions 
