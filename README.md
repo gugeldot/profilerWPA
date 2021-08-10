@@ -1,4 +1,4 @@
-# ***profilerWPA*** *: an easy*
+# ***profilerWPA*** *: an easy way to change wifi on Raspberry*
 
 - Quick Links
     - [Purpose](#purpose)
@@ -8,7 +8,7 @@
 ![IMG](.screenshots/sst.png)
 
 # Purpose
-It's intended to be used in a RaspberryPi 0W to change easily from stored profiles (AS IT IS!) inside the script itself. 
+It's intended to be used in a RaspberryPi 0W (Raspibian OS) to change easily from stored profiles (AS IT IS!) inside the script itself. 
 
 # Security 
 This program stores the password strings as it is, it's one of the first bash programs I made so apologies in advance. 
