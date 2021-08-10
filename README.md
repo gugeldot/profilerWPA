@@ -17,6 +17,7 @@ To avoid any security danger change permissions to only be executed and read by 
 sudo chown root profilerWPA && sudo chgrp root profilerWPA && sudo chmod 700 profilerWPA
 ```
 The file should look like this: 
+
 ![IMG2](.screenshots/sst2.png)
 
 # Usage
