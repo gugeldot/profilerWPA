@@ -1,4 +1,4 @@
-# ***profilerWPA**: an easy *
+# ***profilerWPA: an easy ***
 
 - Quick Links
     - [Purpose](#purpose)
