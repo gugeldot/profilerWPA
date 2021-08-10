@@ -1,11 +1,11 @@
-# ***profilerWPA*** *: an easy way to change wifi on Raspberry*
+# ***profilerWPA*** *: an easy-changing wifi on Raspberry*
+
+![IMG](.screenshots/sst.png)
 
 - Quick Links
     - [Purpose](#purpose)
     - [Security](#security)
     - [Usage](#usage)
-
-![IMG](.screenshots/sst.png)
 
 # Purpose
 It's intended to be used in a RaspberryPi 0W (Raspibian OS) to change easily from stored profiles (AS IT IS!) inside the script itself. 
